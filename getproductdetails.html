@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Diary Farming</title>
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Courgette|Kaushan+Script&display=swap" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+        function generateBarCode()
+        {
+            var qr1 = $('#out1').val();
+            var qr2 = $('#out2').val();
+            var qr3 = $('#out3').val();
+            var url = 'https://api.qrserver.com/v1/create-qr-code/?data='+'Id:' + qr1+',ProductName:'+qr2+',From:'+qr3+'&amp;size=50x50';
+            $('#barcode').attr('src', url);
+        }
+    </script>
+</head>
+<body>
+    <center>
+        <div class="product-details">
+            <h1>Product Details</h1>
+            <input type="text" placeholder="Product-Id" id="producerid"><br/>
+            <button id="is_button">Submit</button>
+            <h1 id="output" ></h1>
+            <input type="text" id="out1" value="Id" onblur='generateBarCode();'>
+            <input type="text" id="out2" value="ProductName" onblur='generateBarCode();'>
+            <input type="text" id="out3" value="From" onblur='generateBarCode();'>
+        </div>
+        <div style="margin-top:-280px;margin-left:600px;">
+        <img id='barcode' src="https://api.qrserver.com/v1/create-qr-code/?data=SomeThingWentWrong&amp;size=100x100" title="QR" width="150"height="150"/>
+        </div>
+    </center>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script>
+    if (typeof web3 !== 'undefined') {
+           web3 = new Web3(web3.currentProvider);
+       } else {
+           web3 = new Web3(new Web3.providers.HttpProvider("http://13.83.91.1:8083/api/node/rpc"));
+       }
+       web3.eth.defaultAccount = web3.eth.getAccounts[0];
+       var dairyindustryContract = web3.eth.contract([{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_producerid",
+				"type": "uint256"
+			}
+		],
+		"name": "getproducerdetails",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}]);
+        var dairyindustry= dairyindustryContract.at('0x2ca49033dbf327233dd879c467d24bb555ea5dc9');
+        console.log(dairyindustry);
+        $("#is_button").click(function(){
+            dairyindustry.getproducerdetails($("#producerid").val(),function(error, result){
+            if(!error){
+                $("#output").html(result[0]+result[1]+result[2]);
+                document.getElementById("out1").value = result[0];
+                document.getElementById("out2").value = result[1];
+                document.getElementById("out3").value = result[2];
+            }
+        })
+        });
+    </script>
+</body>
+</html>

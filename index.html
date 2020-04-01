@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Diary Farming</title>
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Courgette|Kaushan+Script&display=swap" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+        function generateBarCode()
+        {
+            var nric = $('#producerid').val();
+            var nric1 = $('#name').val();
+            var nric2 = $('#place').val();
+           //var nric3 = $('#h1a').val();
+            //var nric4 = $('#d5').val();
+            var url = 'https://api.qrserver.com/v1/create-qr-code/?data='+'Id:' + nric+',ProductName:'+nric1+',From:'+nric2+''+nric3+'&amp;size=50x50';
+            $('#barcode').attr('src', url);
+        }
+    </script>
+</head>
+<body>
+    <a href="processor.html">Processor</a>
+    <center>
+        <div class="product-details">
+            <h1>Product Details</h1>
+            <input type="text" placeholder="Product-Id" id="producerid" onblur='generateBarCode();'><br/>
+            <input type="text" placeholder="Product-Name" id="name" onblur='generateBarCode();'><br/>
+            <input type="text" placeholder="From" id="place" onblur='generateBarCode();'><br/>
+           <!--<input type="text" placeholder="Product From" id="d4" onblur='generateBarCode();'><br/>
+            <textarea placeholder="Product-Details" cols="32" id="d5" onblur='generateBarCode();'></textarea><br/>-->
+            <button id="is_button">Submit</button>
+        </div>
+        <div style="margin-top:-335px;margin-left:600px;">
+        <img id='barcode' src="https://api.qrserver.com/v1/create-qr-code/?data=HelloWorld&amp;size=100x100" title="QR" width="150"height="150"/>
+        </div>
+    </center>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script>
+    if (typeof web3 !== 'undefined') {
+           web3 = new Web3(web3.currentProvider);
+       } else {
+           web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+       }
+       web3.eth.defaultAccount = web3.eth.getAccounts[0];
+       var dairyindustryContract = web3.eth.contract([{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_producerid",
+				"type": "uint256"
+			},
+			{
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"name": "_place",
+				"type": "string"
+			}
+		],
+		"name": "producerdetails",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}]);
+        var dairyindustry= dairyindustryContract.at('0x8879ab5cf518e1cddffe4cb71d74c309ba1a03f6');
+        console.log(dairyindustry);
+        $("#is_button").click(function(){
+        dairyindustry.producerdetails($("#producerid").val(),$("#name").val(),$("#place").val(),(err,res)=>{
+            if(err){
+                alert('Erroe');
+            }
+        })
+        });
+    </script>
+</body>
+</html>

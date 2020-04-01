@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Testing QR code</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <link href="style.css" rel="stylesheet">
+        <script type="text/javascript">
+            function generateBarCode()
+            {
+                var nric = $('#text').val();
+                var nric1 = $('#text1').val();
+                var nric2 = $('#text2').val();
+                var nric3 = $('#text3').val();
+                var nric4 = $('#text4').val();
+                var url = 'https://api.qrserver.com/v1/create-qr-code/?data='+'Id:' + nric+',ProductName:'+nric1+',Date:'+nric2+',From:'+nric3+','+nric4+ '&amp;size=50x50';
+                $('#barcode').attr('src', url);
+            }
+        </script>
+    </head>
+    <body>
+            <input id="text" type="text" 
+            value="NRIC or Work Permit" style="Width:20%"
+            onblur='generateBarCode();' /> 
+            <input id="text1" type="text" 
+            value="NRIC or Work Permit" style="Width:20%"
+            onblur='generateBarCode();' /> 
+            <input id="text2" type="text" 
+            value="NRIC or Work Permit" style="Width:20%"
+            onblur='generateBarCode();' /> 
+            <input id="text3" type="text" 
+            value="NRIC or Work Permit" style="Width:20%"
+            onblur='generateBarCode();' /> 
+            <textarea id="text4" type="text" 
+            value="NRIC or Work Permit" style="Width:20%"
+            onblur='generateBarCode();' ></textarea>
+      <img id='barcode' 
+            src="https://api.qrserver.com/v1/create-qr-code/?data=HelloWorld&amp;size=100x100" 
+            alt="" 
+            title="HELLO" 
+            width="50" 
+            height="50" />
+    </body>
+</html>

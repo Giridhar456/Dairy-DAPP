@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Courgette&display=swap');
+html,body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+body{
+    background-attachment: fixed;
+    background-size: 100% 30%;
+    background-image: url("bg.jpg");
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.product-details{
+    width: 30%;
+    height: 400px;
+    margin-top: 5%;
+    /*background-image: url("milk.jpeg");*/
+    background-color:rgb(0, 0, 0,0.0);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    border-radius: 5px;
+    font-family: 'Courgette', cursive;
+    /*font-family: 'Kaushan Script', cursive;*/
+}
+input[type='text']{
+    width: 70%;
+    height: 35px;
+    margin-top: 8px;
+    border: 1px solid black;
+    background: rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    color: beige;
+    font-weight: bolder;
+}
+input[type='date']{
+    width: 70%;
+    height: 35px;
+    margin-top: 8px;
+    border: 1px solid black;
+    background: rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    color: beige;
+}
+textarea{
+    width: 69%;
+    height: 35px;
+    margin-top: 8px;
+    border: 1px solid black;
+    background: rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    color: beige;
+}
+button{
+    width: 40%;
+    height: 40px;
+    margin-top: 20px;
+    background-color: lightcoral;
+    border:2px solid rgb(34, 62, 135);
+    color: beige;
+    font-size: 21px;
+    cursor: pointer;
+    font-weight: bolder;
+    transition: 0.4s;
+    scale: 0.2;
+    transform: scale(0.95);
+    text-transform: uppercase;
+    font-family: 'Ubuntu', sans-serif;
+}
+button:hover{
+    border: 2px solid rgb(34, 62, 135);
+    background-color: rgb(0, 0, 0,0.0);
+    color: black;
+    transform: scale(1);
+}

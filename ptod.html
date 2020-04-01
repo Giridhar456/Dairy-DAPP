@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Courgette|Kaushan+Script&display=swap" rel="stylesheet">    
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="style.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+        <center>
+        <div class="product-details">
+                <div class="">
+                        <h1>PackagertoDistributor</h1>
+                        <input type="text" placeholder="Shipment-Id" id="_shipmentid" ><br/>
+                        <input type="text" placeholder="Distributor-Id" id="_distributorid" ><br/>
+                        <input type="text" placeholder="ProductCondition" id="_productcondition" ><br/>
+                        <button id="is_button">Submit</button>
+                </div>          
+        </div>
+        </center>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script>
+        if (typeof web3 !== 'undefined') {
+               web3 = new Web3(web3.currentProvider);
+           } else {
+               web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+           }
+           web3.eth.defaultAccount = web3.eth.getAccounts[0];
+           var dairyindustryContract = web3.eth.contract([{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_shipmentid",
+				"type": "uint256"
+			},
+			{
+				"name": "_distributorid",
+				"type": "uint256"
+			},
+			{
+				"name": "_productcondition",
+				"type": "bool"
+			}
+		],
+		"name": "packagertodistributor",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}]);
+            var dairyindustry= dairyindustryContract.at('0x8879ab5cf518e1cddffe4cb71d74c309ba1a03f6');
+            console.log(dairyindustry);
+            $("#is_button").click(function(){
+            dairyindustry.packagertodistributor($("#_shipmentid").val(),$("#_distributorid").val(),$("#_productcondition").val(),(err,res)=>{
+                if(err){
+                    alert('Erroe');
+                }
+            })
+            });
+        </script>
+</body>
+</html>
